@@ -5,6 +5,7 @@ set(HEADERS
         queuing_node_base.h
         queuing_receiver_base.h
         jobs_queue.h
+        jobs_server_base.h
 )
 
 set(SOURCES
@@ -14,6 +15,7 @@ set(SOURCES
         queuing_node_base.cpp
         queuing_receiver_base.cpp
         jobs_queue.cpp
+        jobs_server_base.cpp
 )
 
 add_library(QueuingSystemLib ${HEADERS} ${SOURCES})
