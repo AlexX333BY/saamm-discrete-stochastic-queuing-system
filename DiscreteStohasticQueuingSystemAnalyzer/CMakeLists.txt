@@ -1,7 +1,9 @@
 set(HEADERS
+        model_parameters_parser.h
 )
 
 set(SOURCES
+        model_parameters_parser.cpp
 )
 
 set(Boost_USE_STATIC_LIBS ON)
