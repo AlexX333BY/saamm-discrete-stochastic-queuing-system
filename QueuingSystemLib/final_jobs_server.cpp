@@ -8,8 +8,12 @@ final_jobs_server::final_jobs_server(const double screening_probability) : jobs_
 void final_jobs_server::on_tick()
 {
     std::shared_ptr<job>& serving_job = get_job();
-    if (serving_job && try_serve_job()) {
-        serving_job->set_status(job::job_status::done);
-        serving_job.reset();
+    if (serving_job) {
+        serving_job->tick();
+
+        if (try_serve_job()) {
+            serving_job->set_status(job::job_status::done);
+            serving_job.reset();
+        }
     }
 }
