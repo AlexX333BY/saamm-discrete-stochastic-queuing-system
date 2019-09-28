@@ -24,29 +24,21 @@ modelling_results model(const modelling_params& params)
 {
     auto producer = std::make_shared<queuing_system::fixed_time_bouncing_jobs_producer>(params.ticks_per_job);
     auto queue = std::make_shared<queuing_system::jobs_queue>(params.queue_size);
-    auto first_server = std::make_shared<queuing_system::final_jobs_server>(params.first_screening_probability),
-            second_server = std::make_shared<queuing_system::final_jobs_server>(params.second_screening_probability);
 
     producer->connect_next(queue);
-    queue->connect_next(first_server);
-    queue->connect_next(second_server);
+    queue->connect_next(std::make_shared<queuing_system::final_jobs_server>(params.first_screening_probability));
+    queue->connect_next(std::make_shared<queuing_system::final_jobs_server>(params.second_screening_probability));
+
+    size_t queue_lengths_sum = 0;
     for (unsigned int i = 0; i < params.total_ticks; ++i) {
         producer->tick();
+        queue_lengths_sum += queue->get_length();
     }
 
-    unsigned int bounced_jobs_count = 0,
-        served_jobs_count = 0,
-        non_bounced_jobs_count = 0;
-    double sum_of_relative_time_in_queue = 0;
+    unsigned int bounced_jobs_count = 0, served_jobs_count = 0;
     for (const std::shared_ptr<queuing_system::job>& job : producer->get_produced_jobs()) {
         if (job->get_status() == queuing_system::job::job_status::bounced) {
             ++bounced_jobs_count;
-        } else {
-            ++non_bounced_jobs_count;
-        }
-
-        if (job->get_time_in_system() != 0) {
-            sum_of_relative_time_in_queue += (double)job->get_time_in_queue() / job->get_time_in_system();
         }
 
         if (job->get_status() == queuing_system::job::job_status::done) {
@@ -57,7 +49,7 @@ modelling_results model(const modelling_params& params)
     modelling_results result;
     result.deviation_probability = (double)bounced_jobs_count / (served_jobs_count + bounced_jobs_count);
     result.absolute_throughput = (double)served_jobs_count / params.total_ticks;
-    result.average_time_in_queue = sum_of_relative_time_in_queue / non_bounced_jobs_count;
+    result.average_time_in_queue = (double)queue_lengths_sum / params.total_ticks / result.absolute_throughput;
     return result;
 }
 
