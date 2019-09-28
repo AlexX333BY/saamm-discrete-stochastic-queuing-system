@@ -1,4 +1,5 @@
 #include "model_parameters_parser.h"
+#include <sstream>
 
 const std::string model_parameters_parser::TOTAL_TICKS_COUNT_ARGUMENT("total-ticks"),
     model_parameters_parser::TICKS_COUNT_PER_JOB_GEN_ARGUMENT("ticks-per-job-gen"),
@@ -14,12 +15,9 @@ model_parameters_parser::model_parameters_parser(int argc, char **argv)
     ticks_count_per_job_generation(0),
     queue_size(0),
     p1(0),
-    p2(0)
-{ }
-
-model_parameters_parser::parse_result model_parameters_parser::parse()
+    p2(0),
+    desc("Discrete-stohastic queuing system model")
 {
-    boost::program_options::options_description desc("Discrete-stohastic queuing system model");
     desc.add_options()
         (
             HELP_ARGUMENT.c_str(),
@@ -48,7 +46,10 @@ model_parameters_parser::parse_result model_parameters_parser::parse()
             boost::program_options::value<double>(&p2)->default_value(0.6),
             "p2"
         );
+}
 
+model_parameters_parser::parse_result model_parameters_parser::parse()
+{
     parse_result result = parse_result::wrong_arguments;
     try {
         boost::program_options::store(boost::program_options::parse_command_line(args_count, args, desc), parser);
@@ -104,4 +105,11 @@ unsigned int model_parameters_parser::get_ticks_count_per_job_generation() const
 unsigned int model_parameters_parser::get_total_ticks_count() const
 {
     return total_ticks_count;
+}
+
+std::string model_parameters_parser::get_help_message() const
+{
+    std::ostringstream msg_stream;
+    desc.print(msg_stream);
+    return msg_stream.str();
 }

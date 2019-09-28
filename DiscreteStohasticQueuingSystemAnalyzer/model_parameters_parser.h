@@ -16,9 +16,8 @@ public:
     model_parameters_parser(int argc, char** argv);
 
     parse_result parse();
+    std::string get_help_message() const;
 
-    bool has_total_ticks_count() const;
-    bool has_help() const;
     unsigned int get_total_ticks_count() const;
     unsigned int get_ticks_count_per_job_generation() const;
     size_t get_queue_size() const;
@@ -26,7 +25,11 @@ public:
     double get_second_screening_probability() const;
 
 private:
+    bool has_total_ticks_count() const;
+    bool has_help() const;
+
     boost::program_options::variables_map parser;
+    boost::program_options::options_description desc;
     const int args_count;
     char** args;
     unsigned int total_ticks_count, ticks_count_per_job_generation;
