@@ -12,5 +12,7 @@ const std::vector<std::shared_ptr<job>>& jobs_storage::get_jobs() const
 
 void jobs_storage::store_job(const std::shared_ptr<job> &job)
 {
-    jobs.push_back(job);
+    if (job) {
+        jobs.push_back(job);
+    }
 }
