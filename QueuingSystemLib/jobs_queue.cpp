@@ -12,14 +12,15 @@ void jobs_queue::on_tick()
         job->tick();
     }
 
+
     for (std::shared_ptr<queuing_receiver_base>& node : get_connected_nodes()) {
+        if (jobs.empty()) {
+            break;
+        }
+
         if (node->can_receive_job()) {
             node->receive_job(jobs.front());
             jobs.pop_front();
-
-            if (jobs.empty()) {
-                break;
-            }
         }
     }
 }
