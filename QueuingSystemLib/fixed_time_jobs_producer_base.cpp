@@ -2,7 +2,7 @@
 
 using namespace queuing_system;
 
-fixed_time_jobs_producer_base::fixed_time_jobs_producer_base(const int ticks) : jobs_producer_base(),
+fixed_time_jobs_producer_base::fixed_time_jobs_producer_base(const unsigned int ticks) : jobs_producer_base(),
     ticks_per_generation(ticks), ticks_left(ticks)
 { }
 

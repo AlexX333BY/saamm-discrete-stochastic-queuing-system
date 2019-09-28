@@ -8,7 +8,7 @@
 namespace queuing_system {
     class fixed_time_bouncing_jobs_producer : public fixed_time_jobs_producer_base, public bouncing_jobs_producer_base {
     public:
-        explicit fixed_time_bouncing_jobs_producer(const int ticks_per_generation);
+        explicit fixed_time_bouncing_jobs_producer(const unsigned int ticks_per_generation);
     };
 }
 
