@@ -12,7 +12,6 @@ void jobs_queue::on_tick()
         job->tick();
     }
 
-
     for (std::shared_ptr<queuing_receiver_base>& node : get_connected_nodes()) {
         if (jobs.empty()) {
             break;
@@ -27,7 +26,19 @@ void jobs_queue::on_tick()
 
 void jobs_queue::on_job_received(const std::shared_ptr<job>& job)
 {
-    jobs.push_back(job);
+    bool was_sent = false;
+
+    for (std::shared_ptr<queuing_receiver_base>& node : get_connected_nodes()) {
+        if (node->can_receive_job()) {
+            node->receive_job(job);
+            was_sent = true;
+            break;
+        }
+    }
+
+    if (!was_sent) {
+        jobs.push_back(job);
+    }
 }
 
 bool jobs_queue::can_receive_job()
@@ -37,5 +48,5 @@ bool jobs_queue::can_receive_job()
 
 size_t jobs_queue::get_length() const
 {
-    return queue_size;
+    return jobs.size();
 }
