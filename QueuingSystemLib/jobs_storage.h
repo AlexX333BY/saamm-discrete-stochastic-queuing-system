@@ -12,7 +12,6 @@ namespace queuing_system {
         jobs_storage();
 
         void store_job(const std::shared_ptr<job>& job);
-
         const std::vector<std::shared_ptr<job>>& get_jobs() const;
 
     private:

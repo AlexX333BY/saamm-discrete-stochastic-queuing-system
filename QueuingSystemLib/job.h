@@ -18,13 +18,9 @@ namespace queuing_system {
         job();
 
         void tick() final;
-
         int get_time_in_system() const;
-
         int get_time_in_queue() const;
-
         job_status get_status() const;
-
         void set_status(const job_status status);
 
     private:

@@ -14,12 +14,10 @@ namespace queuing_system {
         queuing_node_base();
 
         void connect_next(const std::shared_ptr<queuing_receiver_base>& next_node);
-
         void tick() final;
 
     protected:
         virtual void on_tick() = 0;
-
         std::vector<std::shared_ptr<queuing_receiver_base>>& get_connected_nodes();
 
     private:

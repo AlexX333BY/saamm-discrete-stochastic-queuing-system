@@ -14,7 +14,6 @@ namespace queuing_system {
 
     protected:
         virtual bool can_receive_job() = 0;
-
         virtual void on_job_received(const std::shared_ptr<job>& job) = 0;
 
     private:
