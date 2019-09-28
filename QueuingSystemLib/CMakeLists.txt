@@ -1,8 +1,10 @@
 set(HEADERS
-        )
+    tickable.h
+)
 
-set(SOURCES
-        )
+set(SOURCE
+    tickable.cpp
+)
 
 add_library(QueuingSystemLib ${HEADERS} ${SOURCES})
 set_target_properties(QueuingSystemLib PROPERTIES OUTPUT_NAME "libqueuingsystem")
