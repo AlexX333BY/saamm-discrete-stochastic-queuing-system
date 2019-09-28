@@ -6,7 +6,7 @@ using namespace queuing_system;
 queuing_node_base::queuing_node_base() : connected_nodes()
 { }
 
-void queuing_node_base::connect_next(const std::shared_ptr<queuing_receiver_base> &next_node)
+void queuing_node_base::connect_next(const std::shared_ptr<queuing_receiver_base>& next_node)
 {
     if (next_node) {
         connected_nodes.push_back(next_node);
