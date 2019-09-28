@@ -9,6 +9,7 @@ queuing_receiver_base::queuing_receiver_base(const job::job_status status_on_rec
 void queuing_receiver_base::receive_job(const std::shared_ptr<job>& job)
 {
     if (job && can_receive_job()) {
+        job->set_status(job_status_on_receive);
         on_job_received(job);
     }
 }
