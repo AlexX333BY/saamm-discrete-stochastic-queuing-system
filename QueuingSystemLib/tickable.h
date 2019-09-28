@@ -2,11 +2,14 @@
 #define DISCRETESTOCHASTICQUEUINGSYSTEM_TICKABLE_H
 
 
-class tickable {
-public:
-    virtual ~tickable();
-    virtual void tick() = 0;
-};
+namespace queuing_system {
+    class tickable {
+    public:
+        virtual ~tickable();
+
+        virtual void tick() = 0;
+    };
+}
 
 
 #endif //DISCRETESTOCHASTICQUEUINGSYSTEM_TICKABLE_H
