@@ -3,6 +3,7 @@ set(HEADERS
 )
 
 set(SOURCES
+        main.cpp
         model_parameters_parser.cpp
 )
 
