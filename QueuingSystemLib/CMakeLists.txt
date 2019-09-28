@@ -1,9 +1,11 @@
 set(HEADERS
     tickable.h
+    job.h
 )
 
-set(SOURCE
+set(SOURCES
     tickable.cpp
+    job.cpp
 )
 
 add_library(QueuingSystemLib ${HEADERS} ${SOURCES})
