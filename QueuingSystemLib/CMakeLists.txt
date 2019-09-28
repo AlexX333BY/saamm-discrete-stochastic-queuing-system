@@ -9,6 +9,7 @@ set(HEADERS
         final_jobs_server.h
         jobs_producer_base.h
         fixed_time_jobs_producer_base.h
+        bouncing_jobs_producer_base.h
 )
 
 set(SOURCES
@@ -22,6 +23,7 @@ set(SOURCES
         final_jobs_server.cpp
         jobs_producer_base.cpp
         fixed_time_jobs_producer_base.cpp
+        bouncing_jobs_producer_base.cpp
 )
 
 add_library(QueuingSystemLib ${HEADERS} ${SOURCES})
