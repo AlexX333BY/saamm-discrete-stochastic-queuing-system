@@ -69,9 +69,9 @@ int main(int argc, char** argv)
             params.ticks_per_job = parser.get_ticks_count_per_job_generation();
             results = model(params);
 
-            std::cout << "Pdev = " << results.deviation_probability << std::endl
-                << "A = " << results.absolute_throughput << std::endl
-                << "Wq = " << results.average_time_in_queue << std::endl;
+            std::cout << "Deviation probability: " << results.deviation_probability << std::endl
+                << "Absolute throughput: " << results.absolute_throughput << std::endl
+                << "Average time in queue: " << results.average_time_in_queue << std::endl;
             break;
         case model_parameters_parser::parse_result::wrong_arguments:
         case model_parameters_parser::parse_result::help:
